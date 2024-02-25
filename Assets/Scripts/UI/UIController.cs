@@ -74,6 +74,8 @@ public class UIController : MonoBehaviour {
 
         passwordElementTexts = new List<PasswordElementText>(); // create list in awake so it doesn't reset after game manager changes it
 
+        preGameScreen.gameObject.SetActive(true); // enable pre game screen
+
         epilepsyToggle.isOn = epilepsyEnabled;
         epilepsyToggle.onValueChanged.AddListener((value) => OnEpilepsyUpdate(value));
 
@@ -88,7 +90,7 @@ public class UIController : MonoBehaviour {
 
         playButton.onClick.AddListener(PlayGame);
 
-        RefreshLayout(passwordScreen); // refresh layout
+        RefreshLayout(preGameScreen.transform); // refresh layout
 
         passwordInput.onEndEdit.AddListener(OnEndEdit);
         submitButton.onClick.AddListener(OnSubmit);
@@ -159,6 +161,7 @@ public class UIController : MonoBehaviour {
 
     private void PlayGame() {
 
+        RefreshLayout(passwordScreen); // refresh layout
         preGameScreen.DOFade(0f, preGameColorFadeDuration).OnComplete(() => preGameScreen.gameObject.SetActive(false)).SetEase(Ease.InOutSine); // fade out pre game screen and disable it
 
     }
